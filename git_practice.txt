@@ -1,0 +1,20 @@
+>> Basic git commands:
+    > git status ()
+    > git init
+    > git branch
+    > git add
+    > git commit
+    > git push
+>> Explore GitHub as a Remote:
+>> Git config
+>> GitHub authentication
+>> Git clone
+
+git branch (see working branch)
+git branch -m newname (rename current working branch to newname)
+
+git status (see status of current working branch)
+
+git init (init repository)
+
+
