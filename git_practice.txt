@@ -21,7 +21,8 @@ git add . (git add filename) --> stage files
 git commit -m "add files" --> commit to current branch.
 
 git config -l
-git config --global user.name nhanguyenht
+
+git config --global user.username nha.nguyenht
 git config --global user.email nha.nguyenht@gmail.com
 
 
@@ -38,8 +39,169 @@ git config credential.helper store --> stored token provided
 2. add files/folders into this file.
 
 -- Solve conflict:
- - pull
- - merge
+ 1. git  pull main branch
+ 2. git merge main branch into changed/updated branch
+ 3. edit/update changed files.
+ 4. commit, push.
+
+-- Kiểm tra Git version:
+git --version
+
+-- Setting configuration:
+git config --list
+git --config --global user.name "your name"
+git --config --global user.email "your email"
+
+Files: untracked, unmodified, modified, staged, commit
+==========================================================================
+git clone path-git
+git clone path-git path-dest
+
+git init
+
+-- ========== staged files/dirs
+git add file1 file2 dir1 dir2
+git add .
+
+-- ========= check branch's status
+git status
+
+-- ======= commit to local repo
+git commit -m "message commit"
+git commit -a -m "message commit" --> git add . + git commit
+git commit --amend -m "message commit" --> append to latest commit with new message commit
+git commit --amend --> append to latest commit without change message of commit.
+
+--==============Create and checkout new branch
+git branch -m <oldname> <newname> --> change branch name
+git branch new_branch		--> create new branch and do not checkout new branch
+git checkout -b new_branch 	--> create new branch and checkout new branch
+git switch -c new_branch	--> create new branch and checkout new branch
+
+-- =========== switch/ checkout different branch
+git checkout new_branch
+git switch new_branch
+
+-- =========== Fetch and merge
+git fetch origin 				--> fetch all changes from remote to origin/branch (do not merge to local repo)
+git merge origin/master 		--> merge changes from orign/master to current branch.
+git push origin feature/abc 	--> push feature/abc to remote.
+
+git merge -s ours feature/branch	--> merge and keep changes on current branch
+
+-- =========== Fetch and rebase
+git fetch origin
+git rebase origin/master
+
+-- =========== check different commits between 2 branches
+git log --oneline master ^feature/abc
+git log --oneline master..feature/abc
+
+-- ========== combine multi-commits (n) into 1 
+Step#1: git rebase -i HEAD~n
+Step#2: update pick --> s (only keep intact for the latest commit)
+
+--==============
+git checkout master
+git checkout HASH file1		--> restore to commited version with HASH code
+git checkout index.html		--> restore to the latest commit
+git checkout -- *.html		--> restore multi-files
+git checkout -- .
+
+-- =========== create branch at specific commit
+git branch new_branch HEAD~3
+git checkout - b new_branch <commit-hash or HEAD~3>
+
+git branch feature/abc 6acbc9000
+git checkout -b feature/abc 6acbc9000
+git branch feature/abc tag_identifier
+
+--=========== push branch from local repo to remote
+git push -u origin <branch>		--> the first time push local branch to remote
+git push origin <branch>		--> update changes from local to remote
+git push --force				--> overwrite remote history
+
+--========== delete local branch and remote branch
+git branch -d <branch>		--> delete local branch
+git push -d orgin <branch>	--> delete remote branch
+
+-- ========= check remote repo and remote branch
+git remote -v
+git ls-remote
+git branch -r
+git branch -l
+
+-- ======== Cancel staged/commit
+git reset 			--> cancel all staged files
+git reset --file1	--> cancel file1 from staged
+
+git reset --soft HEAD~1		--> cancel latest commit but keep changes in working space
+git reset --hard HEAD~1		--> cancel latest commit and remove changes in working space
+
+-- ======== restore files from staged/commit to working space
+git restore . --staged	--> restore files from staged to working space
+git restore .			--> restore files from commit to working tree
+
+-- ======== create new commit to revert previous commit (keep all commit to track history)
+git revert
+
+-- ======== show commit info
+git log -2 			--> show 2 last commits
+git log --stat -5	
+git log --oneline --graph
+git log --oneline --author="author_name"		--> filter by author
+git log --oneline --grep="noi dung"				--> filter by comment
+git log --oneline --shortstat -S "noi dung"		--> filter by comment
+git log --after="2025-01-01" --before="2026-01-01"	--> filter by date
+
+-- ======== check difference
+git diff				--> working tree vs staged/commit
+git diff --staged		--> different staged and latest commit
+git diff hash-commit1 hash-commit2	
+git diff branch1 branch2
+
+--========create lightweight tag
+git tag v1.0		--> used for local working
+
+-- ======== create annotated tag
+git tag -a v1.0 -m "Releasing ver 1.0"			--> tag at the latest commit.
+git tag -a v0.0 -m "Releasing ver 0.0" 69d02ac9d --> tag at hash-commit.
+
+-- ========= tags
+git tag -l -n3
+git tag -l -n "*v2601*"		--> list tags with *v2601*
+git show v1.0				--> show detail of v1.0 tag
+
+-- ======== push tag_identifier to remote:
+git push origin <tag_identifier>
+git push origin --tags 		--> push all tags to remote
+
+-- ========= delete local tag
+git tag -d <tag_identifier> 	--> delete local tag
+
+--======== delete remote tag
+Step#1: delete local tag
+git tag -d <tag_identifier>
+
+Step#2: push deleted tag to remote
+git push --delete origin <tag_identifier>
+
+--======== update tag with another hash-commit
+git tag -a -f <tag_identifier> <hash-commit2>
+
+--=========== Stash: save current WIP
+git stash
+git stash push
+git stash save "temporary save to switch to another working branch"
+
+git stash list 		--> stashed list
+git stash show -p	--> show diff 
+
+git stash apply		--> apply the latest stash
+git stash apply "stash@{n}"		--> apply stash n
+git stash pop "stash@{n}"		--> apply stash n and remove it in stashed list
+git stash drop "stash@{n}"		--> remove stash n in the stashed list
+git stash clear 				--> clear all stashed list.
 
 
 
