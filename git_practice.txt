@@ -20,14 +20,22 @@ git init (init repos)
 git add . (git add filename) --> stage files
 git commit -m "add files" --> commit to current branch.
 
+git config -l
 git config --global user.name nhanguyenht
-git config - global user.email nha.nguyenht@gmail.com
+git config --global user.email nha.nguyenht@gmail.com
+
 
 >> link local repo to remote repos:
  git remote add origin https://github.com/nhanguyenht/git_practice.git
 
 >> sync local repo to remote repo after they linked
 git push --set-upstream origin master
+
+git config credential.helper store --> stored token provided
+
+-- Git ignore files:
+
+
 
 
 
